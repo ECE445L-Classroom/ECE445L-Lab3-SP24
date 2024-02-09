@@ -73,11 +73,11 @@ int Lab4E_main(void){
 
   //Integrate your lab 3 here
   while(1){ 
+  	Mode_Value ^= 0x01;
 		ST7735_SetCursor(0,11);
 		ST7735_OutString("Mode is now:    ");
 		ST7735_SetCursor(13,11);
 		ST7735_OutUDec( Mode_Value );
-		Mode_Value ^= 0x01;
 		pause();
   }
 }
