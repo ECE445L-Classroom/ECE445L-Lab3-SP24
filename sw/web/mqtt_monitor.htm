@@ -97,7 +97,9 @@ hr {
 		function onFailure(message){
 			connected_flag=0;
 			set_all("Connection Failed, Retrying")
-			setTimeout(MQTTRetryConnect, reconnectTimeout);	//Try again in reconnectTimeout ms
+
+			//Try again in reconnectTimeout ms
+			setTimeout(MQTTRetryConnect, reconnectTimeout);	
 		}
 
 		function onMessageArrived(data, topic){
@@ -130,8 +132,8 @@ hr {
 			options = {
 				// Clean session
 				clean: true,
-				connectTimeout: 64000,
-				keepalive: 600,
+				connectTimeout: 4000,
+				keepalive: 4000,
 				// Authentication
 				clientId: document.forms["connform"]["cid"].value,
 				username: document.forms["connform"]["name"].value,
@@ -214,10 +216,21 @@ hr {
 					append_message("Sent msg to '"+topic+"': " + msg)
 				}
 			})
-					
+
 			return false;
 		}
+	</script>
 
+	<script>
+		function on_page_load(){
+			clientId  = document.forms["connform"]["cid"].value
+			sesion_id = Math.floor(Math.random() * 65535).toString();
+			clientId  = clientId + "_" + sesion_id
+			document.forms["connform"]["cid"].value = clientId
+			console.log("Set ID to:" + clientId)
+		}
+
+		document.addEventListener("DOMContentLoaded", on_page_load);
 	</script>
 
 </head>
